@@ -1,0 +1,50 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!--///////////////////////////////////////////////-->
+
+    <style name="MyAppTheme" parent="AppTheme">
+        <item name="android:screenOrientation">portrait</item>
+        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
+        <item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">false</item>
+    </style>
+
+
+    <!--换成对应的应用启动页面背景-->
+    <style name="SplashTheme" parent="MyAppTheme">
+        <item name="android:windowBackground">@mipmap/bg</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+
+    <style name="FullScreen" parent="MyAppTheme">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="FitWindow">
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/dialog_bubble_in</item>
+    </style>
+
+    <style name="EditTextStyle">
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:textColorHint">@color/white</item>
+    </style>
+
+</resources>

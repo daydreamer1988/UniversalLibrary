@@ -1,0 +1,24 @@
+1. :app Application需要继承 :minicup MyApplication
+
+2. :app build.gradle 需要设置如下，以解决module中BuildConfig.DEBUG 一直返回false的问题
+
+    //compile project(path: ':library')
+    dependencies {
+        compile fileTree(dir: 'libs', include: ['*.jar'])
+        releaseCompile project(path:':library',configuration:'release')
+        debugCompile project(path:':library',configuration: 'debug')
+    }
+
+3. 去掉:app中的AppTheme
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
+4. 设置Appconstants中的APP_FILE_ROOT_PATH， 文件存储路径
+
