@@ -68,6 +68,7 @@ public abstract class BaseFragment extends Fragment {
             this.isVisibleToUser = false;
             if (isPrepared) {
                 onUnvisibleToUser();
+                
             }
         }
     }
