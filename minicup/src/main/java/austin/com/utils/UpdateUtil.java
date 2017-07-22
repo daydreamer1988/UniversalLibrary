@@ -18,6 +18,8 @@ import austin.com.http.VolleyInterface;
 
 /**
  * Created by Austin on 2017/7/16.
+ *
+ * 注意权限
  */
 
 public class UpdateUtil {
@@ -87,7 +89,7 @@ public class UpdateUtil {
             return this;
         }
 
-        public void downLoadAPK() {
+        private void downLoadAPK() {
             if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 throw new IllegalArgumentException("No Permission WRITE_EXTERNAL_STORAGE");
             }

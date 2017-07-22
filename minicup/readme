@@ -9,7 +9,7 @@
         debugCompile project(path:':library',configuration: 'debug')
     }
 
-3. 去掉:app中的AppTheme
+3. 去掉所有module中的AppTheme,或改名字，但只能有一个命名为AppTheme
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
@@ -24,4 +24,6 @@
 
 
 5. 设置SharePreferenceUtils中的
+
+6. 设置StatusBar的颜色
 

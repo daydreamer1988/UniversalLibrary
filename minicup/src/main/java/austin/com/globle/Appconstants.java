@@ -4,6 +4,8 @@ import android.os.Environment;
 
 import java.io.File;
 
+import austin.com.R;
+
 /**
  * ToDo:存储全局参数
  */
@@ -17,6 +19,8 @@ public interface Appconstants {
     String APP_FILE_ROOT_PATH = Environment.getExternalStorageDirectory().getPath() + File.separator + "UniversalLibrary" + File.separator;
 
     String APP_PIC_PATH = APP_FILE_ROOT_PATH + "pictures" + File.separator;
+
+    int TITLE_BAR_BG = R.color.title_bar_bgcolor;
 
     /**
      * 网络签名

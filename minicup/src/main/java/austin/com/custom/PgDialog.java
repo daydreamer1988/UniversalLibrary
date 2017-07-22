@@ -2,7 +2,9 @@ package austin.com.custom;
 
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,5 +69,22 @@ public class PgDialog {
 
     public void myshow() {
         dialog.show();
+    }
+
+    public void dismissAfter(int milisecond, @Nullable final DismissCallback callback) {
+        if (dialog != null) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    dialog.dismiss();
+                    if(callback!=null)
+                        callback.onDismiss();
+                }
+            }, milisecond);
+        }
+    }
+
+    public interface DismissCallback{
+        void onDismiss();
     }
 }

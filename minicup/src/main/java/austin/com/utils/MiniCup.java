@@ -68,4 +68,12 @@ public class MiniCup {
             target.setSelection(cursorPosition);
         }
     }
+
+    /**
+     * 设置EditText光标的位置
+     * @param target
+     */
+    public static void moveCursorToEnd(EditText target) {
+        target.setSelection(target.length());
+    }
 }

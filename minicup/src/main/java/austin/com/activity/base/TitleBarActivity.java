@@ -34,7 +34,7 @@ public class TitleBarActivity extends BaseActivity implements TitleBarInterface 
         super.onCreate(savedInstanceState);
         SystemBarTintManager manager = new SystemBarTintManager(this);
         manager.setStatusBarTintEnabled(true);
-        manager.setStatusBarTintColor(getResources().getColor(R.color.title_bar_bgcolor));
+        manager.setStatusBarTintColor(getResources().getColor(TITLE_BAR_BG));
     }
 
 
