@@ -1,0 +1,22 @@
+1. 添加监听事件
+        findViewById(R.id.btn_wechat).setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            protected void onNoDoubleClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString(PayFragment.EXTRA_CONTENT, "" + 100.00);
+                mPayFragment = new PayFragment();
+                mPayFragment.setArguments(bundle);
+                mPayFragment.setInputSucessCallBack(MainActivity.this);
+                mPayFragment.show(getSupportFragmentManager(), "pay");
+            }
+        });
+
+
+2. implements PayPasswordView.InputCallBack
+
+3. 实现方法
+    @Override
+    public void onInputFinsh(String result) {
+        mPayFragment.dismiss();
+        Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+    }

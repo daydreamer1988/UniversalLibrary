@@ -1,1 +1,1 @@
-include ':app', ':minicup'
+include ':app', ':minicup', ':passworddialog'

@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.text.InputType;
 import android.util.TypedValue;
+import android.widget.EditText;
 
 import austin.com.activity.base.BaseActivity;
 
@@ -33,6 +35,11 @@ public class MiniCup {
     }
 
 
+    /**
+     * 网络请求回调后判断该Actiivty是否退出，以防止空指针
+     * @param context
+     * @return
+     */
     public static boolean isActivityAlive(Context context) {
         if (context == null || ((BaseActivity)context).isFinishing()) {
             return false;
@@ -43,5 +50,22 @@ public class MiniCup {
             }
         }
         return true;
+    }
+
+
+    /**
+     * 显示明文还是暗文
+     * @param target
+     * @param display
+     */
+    public static void togglePasswordDisplay(EditText target, boolean display) {
+        int cursorPosition = target.length();
+        if (display) {
+            target.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            target.setSelection(cursorPosition);
+        } else {
+            target.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            target.setSelection(cursorPosition);
+        }
     }
 }

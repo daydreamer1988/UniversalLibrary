@@ -22,3 +22,6 @@
 
 4. 设置Appconstants中的APP_FILE_ROOT_PATH， 文件存储路径
 
+
+5. 设置SharePreferenceUtils中的
+

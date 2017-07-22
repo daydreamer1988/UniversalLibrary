@@ -9,7 +9,6 @@ import com.android.volley.toolbox.Volley;
 import java.util.ArrayList;
 import java.util.List;
 
-import austin.com.utils.SharedPreferencesUtils;
 
 /**
  * Created by Austin on 2016/10/28.
@@ -28,8 +27,6 @@ public class MyApplication extends Application {
         super.onCreate();
 
         instance = this;
-
-        SharedPreferencesUtils.init(this);
 
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 

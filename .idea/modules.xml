@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/UniversalLibrary.iml" filepath="$PROJECT_DIR$/UniversalLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/minicup/minicup.iml" filepath="$PROJECT_DIR$/minicup/minicup.iml" />
+      <module fileurl="file://$PROJECT_DIR$/passworddialog/passworddialog.iml" filepath="$PROJECT_DIR$/passworddialog/passworddialog.iml" />
     </modules>
   </component>
 </project>
