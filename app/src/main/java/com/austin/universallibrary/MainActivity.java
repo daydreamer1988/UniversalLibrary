@@ -1,6 +1,8 @@
 package com.austin.universallibrary;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -14,6 +16,8 @@ import austin.com.activity.base.TitleBarActivity;
 import austin.com.custom.PgDialog;
 import austin.com.http.ApiManager;
 import austin.com.http.VolleyInterface;
+import austin.com.permissions.RuntimePermission;
+import austin.com.permissions.RuntimePermissionCallback;
 import austin.com.receivers.SMSReceiver;
 import austin.com.receivers.SMSReceiver2;
 import austin.com.utils.AllCapTransformationMethod;
@@ -24,6 +28,7 @@ public class MainActivity extends TitleBarActivity {
     private EditText mText;
     private PayFragment mPayFragment;
     private SMSReceiver receiver;
+    private RuntimePermission permission;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +80,43 @@ public class MainActivity extends TitleBarActivity {
 
         mText.setTransformationMethod(new AllCapTransformationMethod());
 
+        permission = new RuntimePermission();
+        permission.setRuntimePermissionCallback(new RuntimePermissionCallback() {
+            @Override
+            public void onGranted() {
+                Toast.makeText(MainActivity.this, "yes", Toast.LENGTH_SHORT).show();
+            }
 
+            @Override
+            public void onShowRational() {
+                Toast.makeText(MainActivity.this, "rational", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNeverAsk() {
+                Toast.makeText(MainActivity.this, "onNeverAsk", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public String onDismiss() {
+                return "dismiss";
+            }
+        });
+        permission.checkPermissions(this, RuntimePermission.STORAGE);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        permission.onActivityResult(requestCode, resultCode, data);
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        permission.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
     }
 
