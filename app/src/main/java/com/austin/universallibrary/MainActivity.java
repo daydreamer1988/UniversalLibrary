@@ -1,27 +1,31 @@
 package com.austin.universallibrary;
 
-import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.apple.alert.AlertControl;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 import com.yu.pay.PayFragment;
-import com.yu.pay.PayPasswordView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import austin.com.activity.base.TitleBarActivity;
-import austin.com.custom.PgDialog;
 import austin.com.http.ApiManager;
 import austin.com.http.VolleyInterface;
 import austin.com.permissions.RuntimePermission;
-import austin.com.permissions.RuntimePermissionCallback;
 import austin.com.receivers.SMSReceiver;
-import austin.com.receivers.SMSReceiver2;
 import austin.com.utils.AllCapTransformationMethod;
-import austin.com.utils.UpdateUtil;
+import austin.com.utils.MiniCup;
+import austin.com.utils.PicassoTransform;
 
 public class MainActivity extends TitleBarActivity {
     private LinearLayout mActivityMain;
@@ -35,95 +39,84 @@ public class MainActivity extends TitleBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        List<Transformation> list = new ArrayList<>();
+        list.add(new CircleTransformation());
+        list.add(new BlurTransformation());
+        ImageView imageView = (ImageView) findViewById(R.id.image);
+        Picasso.with(this).load("http://i6.qhimg.com/t015dbfc00a77e3911e.jpg")
+                .transform(list).into(imageView);
+
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertControl(MainActivity.this)
+                        .setTitle("fuck")
+                .setMsg("message")
+                .setPositiveButton("yes", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                })
+                .setNegativeButton("no", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                })
+                .setCancelable(false)
+                .show();
+            }
+        });
+
+
         mActivityMain = (LinearLayout) findViewById(R.id.activity_main);
         mText = (EditText) findViewById(R.id.text);
         mActivityMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString(PayFragment.EXTRA_CONTENT, "" + 100.00);
-                mPayFragment = new PayFragment();
-                mPayFragment.setArguments(bundle);
-                mPayFragment.setInputSucessCallBack(new PayPasswordView.InputCallBack() {
-                    @Override
-                    public void onInputFinsh(String result) {
-                        mPayFragment.dismiss();
-                        Toast.makeText(MainActivity.this, "" + result, Toast.LENGTH_SHORT).show();
-                    }
-                });
-                mPayFragment.show(getSupportFragmentManager(), "pay");
+
             }
         });
 
-        new PgDialog(MainActivity.this, "fuck", false).dismissAfter(2000, new PgDialog.DismissCallback() {
-            @Override
-            public void onDismiss() {
-                Toast.makeText(MainActivity.this, "fuck done", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        /*receiver =  new SMSReceiver();
-        receiver.setMessageListener(new SMSReceiver.MessageListener() {
-            @Override
-            public void onGetResult(String result) {
-                Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
-            }
-        });
-        registerReceiver(receiver, receiver.getIntentFilter());*/
-
-        SMSReceiver2.registerReceiver(this).setMessageListener(new SMSReceiver2.MessageListener() {
-            @Override
-            public void onGetResult(String result) {
-                Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
-            }
-        });
 
         mText.setTransformationMethod(new AllCapTransformationMethod());
+        MiniCup.moveCursorToEnd(mText);
 
-        permission = new RuntimePermission();
-        permission.setRuntimePermissionCallback(new RuntimePermissionCallback() {
-            @Override
-            public void onGranted() {
-                Toast.makeText(MainActivity.this, "yes", Toast.LENGTH_SHORT).show();
-            }
 
-            @Override
-            public void onShowRational() {
-                Toast.makeText(MainActivity.this, "rational", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNeverAsk() {
-                Toast.makeText(MainActivity.this, "onNeverAsk", Toast.LENGTH_SHORT).show();
-
-            }
-
-            @Override
-            public String onDismiss() {
-                return "dismiss";
-            }
-        });
-        permission.checkPermissions(this, RuntimePermission.STORAGE);
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        permission.onActivityResult(requestCode, resultCode, data);
+    class CircleTransformation implements Transformation {
+        @Override
+        public Bitmap transform(Bitmap source) {
+            return PicassoTransform.getCircleTransform(source);
+        }
 
+        @Override
+        public String key() {
+            return "circle";
+        }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        permission.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    class BlurTransformation implements Transformation {
+        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+        @Override
+        public Bitmap transform(Bitmap source) {
+            return PicassoTransform.getBlurBitmap(MainActivity.this, source);
+        }
 
+        @Override
+        public String key() {
+            return "circle";
+        }
     }
+
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SMSReceiver2.unRegisterReceiver(this);
     }
 
     public void doClick(View view) {

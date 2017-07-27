@@ -49,6 +49,6 @@ public class EditTextLimitWatcher implements TextWatcher {
         ClipboardManager
                 cmb = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         cmb.setText(content.trim());
-        ToaShow.popupToast(context,"复制成功");
+        Toast.makeText(context, "复制成功", Toast.LENGTH_SHORT).show();
     }
 }

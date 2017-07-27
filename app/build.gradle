@@ -29,5 +29,6 @@ dependencies {
     //compile project(path: ':minicup')
     releaseCompile project(path: ':minicup', configuration: 'release')
     debugCompile project(path: ':minicup', configuration: 'debug')
-    compile project(':passworddialog')
+    compile project(':dialogs')
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }
