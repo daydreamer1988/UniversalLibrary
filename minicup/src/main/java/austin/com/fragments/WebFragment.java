@@ -1,8 +1,12 @@
 package austin.com.fragments;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ClipDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +14,35 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 
+/**
+ * 带进度条的WebView
+ * 使用方法:
+ * WebFragment fragment = WebFragment.newInstance("http://www.baidu.com");
+   getSupportFragmentManager().beginTransaction().add(R.id.webViewContainer, fragment, "web").commit();
+
+
+ 网页回退方案
+ @Override
+ public void onBackPressed() {
+    if(fragment.onBackPressed()){
+    }else{
+        super.onBackPressed();
+    }
+ }
+ */
 public class WebFragment extends Fragment {
 
     private WebView webView;
     private String mUrl;
+    private ProgressBar progressBar;
 
     public WebFragment() {
     }
@@ -39,13 +66,26 @@ public class WebFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        RelativeLayout rootView = new RelativeLayout(getActivity());
+        rootView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        //init webview
         webView = new WebView(getActivity());
         webView.loadUrl(mUrl);
         webView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        rootView.addView(webView);
         initWebView(webView);
-        return webView;
+
+        //init progressbar
+        progressBar = new ProgressBar(getActivity(), null, android.R.attr.progressBarStyleHorizontal);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 8);
+        progressBar.setLayoutParams(layoutParams);
+        ClipDrawable d = new ClipDrawable(new ColorDrawable(Color.BLUE), Gravity.LEFT, ClipDrawable.HORIZONTAL);
+        progressBar.setProgressDrawable(d);
+        rootView.addView(progressBar);
+        return rootView;
     }
 
     private void initWebView(WebView mWebView) {
@@ -115,11 +155,22 @@ public class WebFragment extends Fragment {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
+
+                if (newProgress == 100) {
+                    progressBar.setVisibility(GONE);
+                } else {
+                    if (progressBar.getVisibility() == GONE)
+                        progressBar.setVisibility(VISIBLE);
+                    progressBar.setProgress(newProgress);
+                }
             }
         });
     }
 
-
+    /**
+     *
+     * @return true, 表示webview有返回的页面,Activity不需要再做操作
+     */
     public boolean onBackPressed(){
         if (webView!=null && webView.canGoBack()) {
             webView.goBack();//返回上一页面

@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -74,20 +73,16 @@ public class MainActivity extends TitleBarActivity {
 
         mWebViewContainer = (LinearLayout) findViewById(R.id.webViewContainer);
 
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
         fragment = WebFragment.newInstance("http://www.baidu.com");
-        transaction.add(R.id.webViewContainer, fragment, "web").commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.webViewContainer, fragment, "web").commit();
 
     }
 
     @Override
     public void onBackPressed() {
         if(fragment.onBackPressed()){
-
         }else{
             super.onBackPressed();
-
         }
     }
 
