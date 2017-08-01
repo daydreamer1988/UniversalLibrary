@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.android.volley.VolleyError;
-import com.apple.alert.AlertControl;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 import com.yu.pay.PayFragment;
@@ -19,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import austin.com.activity.base.TitleBarActivity;
+import austin.com.fragments.WebFragment;
 import austin.com.http.ApiManager;
 import austin.com.http.VolleyInterface;
 import austin.com.permissions.RuntimePermission;
@@ -33,6 +33,8 @@ public class MainActivity extends TitleBarActivity {
     private PayFragment mPayFragment;
     private SMSReceiver receiver;
     private RuntimePermission permission;
+    private LinearLayout mWebViewContainer;
+    private WebFragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,23 +52,6 @@ public class MainActivity extends TitleBarActivity {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertControl(MainActivity.this)
-                        .setTitle("fuck")
-                .setMsg("message")
-                .setPositiveButton("yes", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                    }
-                })
-                .setNegativeButton("no", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                    }
-                })
-                .setCancelable(false)
-                .show();
             }
         });
 
@@ -85,8 +70,21 @@ public class MainActivity extends TitleBarActivity {
         MiniCup.moveCursorToEnd(mText);
 
 
+
+        mWebViewContainer = (LinearLayout) findViewById(R.id.webViewContainer);
+
+        fragment = WebFragment.newInstance("http://www.baidu.com");
+        getSupportFragmentManager().beginTransaction().add(R.id.webViewContainer, fragment, "web").commit();
+
     }
 
+    @Override
+    public void onBackPressed() {
+        if(fragment.onBackPressed()){
+        }else{
+            super.onBackPressed();
+        }
+    }
 
     class CircleTransformation implements Transformation {
         @Override

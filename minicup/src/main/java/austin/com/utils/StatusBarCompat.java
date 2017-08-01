@@ -84,8 +84,6 @@ public class StatusBarCompat {
                 ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, statusBarHeight);
                 statusBarView.setBackgroundColor(statusColor);
                 mContentView.addView(statusBarView, 0, lp);
-
-
             }
         }
     }
