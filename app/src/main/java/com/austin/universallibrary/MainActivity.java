@@ -40,7 +40,7 @@ public class MainActivity extends TitleBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        //
         List<Transformation> list = new ArrayList<>();
         list.add(new CircleTransformation());
         list.add(new BlurTransformation());
