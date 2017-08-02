@@ -1,17 +1,17 @@
 package com.austin.universallibrary;
 
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.v7.app.AlertDialog;
+import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.android.volley.VolleyError;
+import com.dialog.InputDialog;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 import com.yu.pay.PayFragment;
@@ -55,11 +55,13 @@ public class MainActivity extends TitleBarActivity {
             @Override
             public void onClick(View view) {
 
-                EditText editText = new EditText(MainActivity.this);
+               /* EditText editText = new EditText(MainActivity.this);
                 editText.setBackgroundDrawable(null);
+                editText.setGravity(Gravity.CENTER);
 
-                AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
+                AlertDialog dialog = new AlertDialog.Builder(MainActivity.this,R.style.Theme_AppCompat_Light_Dialog_Alert)
                         .setView(editText)
+                        .setTitle("Title")
                         .setPositiveButton("yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -72,6 +74,28 @@ public class MainActivity extends TitleBarActivity {
 
                             }
                         }).show();
+
+                dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);*/
+
+
+                new InputDialog(MainActivity.this)
+                        .builder()
+                        .setTitle("title")
+                        .setTextHint("hint")
+                        .setTextInputType(InputType.TYPE_CLASS_NUMBER)
+                        .setText("text")
+                        .setPositiveButton("确定", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                            }
+                        })
+                        .setNegativeButton("取消", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                            }
+                        }).show();
+
             }
         });
 
