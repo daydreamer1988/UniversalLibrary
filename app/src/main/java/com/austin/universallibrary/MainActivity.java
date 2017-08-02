@@ -1,9 +1,11 @@
 package com.austin.universallibrary;
 
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -52,6 +54,24 @@ public class MainActivity extends TitleBarActivity {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                EditText editText = new EditText(MainActivity.this);
+                editText.setBackgroundDrawable(null);
+
+                AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
+                        .setView(editText)
+                        .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        })
+                        .setNegativeButton("no", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        }).show();
             }
         });
 
