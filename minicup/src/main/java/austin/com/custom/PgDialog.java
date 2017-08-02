@@ -46,7 +46,7 @@ public class PgDialog {
         window.setContentView(view);
 
         WindowManager.LayoutParams p = dialog.getWindow().getAttributes();  //获取对话框当前的参数值
-        p.width = MiniCup.dp2Px(context, 100);   //设置宽度
+        p.width = MiniCup.dp2Px(context, 150);   //设置宽度 最多6个字
         dialog.getWindow().setAttributes(p);     //设置生效
 
         ProgressBar pg;
