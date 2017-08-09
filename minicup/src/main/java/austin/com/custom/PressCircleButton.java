@@ -9,10 +9,15 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.MotionEvent;
+import android.view.SoundEffectConstants;
 import android.widget.ImageView;
 
 import austin.com.R;
 
+/**
+ * 点击实现扩展环
+ */
 public class PressCircleButton extends ImageView {
 
 	private static final int PRESSED_COLOR_LIGHTUP = 255 / 25;
@@ -50,7 +55,12 @@ public class PressCircleButton extends ImageView {
 		init(context, attrs);
 	}
 
-	@Override
+	//两个控件,都可获得响应事件(BUG)
+	//去掉这两行,点击外面和里面一样,并有声音提醒
+	//加上这两行,点击外面按下无效果,抬起有效果,点击以外有声音,以内无声音
+
+	//参考:http://www.cnblogs.com/xiaoweiz/p/3959298.html  http://blog.csdn.net/cpyyes/article/details/11144497
+	/*@Override
 	public void setPressed(boolean pressed) {
 		super.setPressed(pressed);
 
@@ -63,6 +73,22 @@ public class PressCircleButton extends ImageView {
 		} else {
 			hidePressedRing();
 		}
+	}
+*/
+	//解决两个控件,都可获得响应事件
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		switch (event.getAction()) {
+			case MotionEvent.ACTION_DOWN:
+				showPressedRing();
+				break;
+
+			case MotionEvent.ACTION_UP:
+				hidePressedRing();
+				playSoundEffect(SoundEffectConstants.CLICK);
+				break;
+		}
+		return true;
 	}
 
 	@Override
@@ -114,9 +140,13 @@ public class PressCircleButton extends ImageView {
 	}
 
 	private void init(Context context, AttributeSet attrs) {
+		//两个控件,都可获得响应事件(BUG)
+		//去掉这两行,点击外面和里面一样,并有声音提醒
+		//加上这两行,点击外面按下无效果,抬起有效果,点击以外有声音,以内无声音
 		this.setFocusable(true);
-		this.setScaleType(ScaleType.CENTER_INSIDE);
 		setClickable(true);
+
+		this.setScaleType(ScaleType.CENTER_INSIDE);
 
 		circlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 		circlePaint.setStyle(Paint.Style.FILL);
