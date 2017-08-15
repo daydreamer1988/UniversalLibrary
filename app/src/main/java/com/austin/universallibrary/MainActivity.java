@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import austin.com.activity.base.TitleBarActivity;
+import austin.com.custom.CircleShadowImageView;
+import austin.com.custom.PressCircleButton;
 import austin.com.fragments.WebFragment;
 import austin.com.http.ApiManager;
 import austin.com.http.VolleyInterface;
@@ -42,6 +44,8 @@ public class MainActivity extends TitleBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
         //
         List<Transformation> list = new ArrayList<>();
         list.add(new CircleTransformation());
@@ -101,6 +105,8 @@ public class MainActivity extends TitleBarActivity {
 
 
         mActivityMain = (LinearLayout) findViewById(R.id.activity_main);
+
+
         mText = (EditText) findViewById(R.id.text);
         mActivityMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,8 +123,14 @@ public class MainActivity extends TitleBarActivity {
 
         mWebViewContainer = (LinearLayout) findViewById(R.id.webViewContainer);
 
-        fragment = WebFragment.newInstance("http://www.baidu.com");
-        getSupportFragmentManager().beginTransaction().add(R.id.webViewContainer, fragment, "web").commit();
+        CircleShadowImageView imageView1 = new CircleShadowImageView(this, getResources().getColor(R.color.colorAccent));
+        imageView1.setLayoutParams(new LinearLayout.LayoutParams(300, 300));
+
+        PressCircleButton pressCircleButton = new PressCircleButton(this);
+        pressCircleButton.setLayoutParams(new LinearLayout.LayoutParams(300, 300));
+
+        mWebViewContainer.addView(imageView1, 0);
+        mWebViewContainer.addView(pressCircleButton, 0);
 
     }
 
