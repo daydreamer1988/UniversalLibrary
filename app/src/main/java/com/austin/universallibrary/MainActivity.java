@@ -28,6 +28,7 @@ import austin.com.http.VolleyInterface;
 import austin.com.permissions.RuntimePermission;
 import austin.com.receivers.SMSReceiver;
 import austin.com.utils.AllCapTransformationMethod;
+import austin.com.utils.EditTextUtil;
 import austin.com.utils.MiniCup;
 import austin.com.utils.PicassoTransform;
 
@@ -108,6 +109,9 @@ public class MainActivity extends TitleBarActivity {
 
 
         mText = (EditText) findViewById(R.id.text);
+
+        EditTextUtil.setMaxLengthAndDigits(mText, 15, "HelloWorld");
+
         mActivityMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
