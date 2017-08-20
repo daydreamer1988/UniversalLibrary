@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,12 +24,12 @@ import austin.com.activity.base.TitleBarActivity;
 import austin.com.custom.CircleShadowImageView;
 import austin.com.custom.PressCircleButton;
 import austin.com.fragments.WebFragment;
+import austin.com.handlers.CrashHandler;
 import austin.com.http.ApiManager;
 import austin.com.http.VolleyInterface;
 import austin.com.permissions.RuntimePermission;
 import austin.com.receivers.SMSReceiver;
 import austin.com.utils.AllCapTransformationMethod;
-import austin.com.utils.AppInfoUtil;
 import austin.com.utils.EditTextUtil;
 import austin.com.utils.MiniCup;
 import austin.com.utils.PicassoTransform;
@@ -47,11 +48,6 @@ public class MainActivity extends TitleBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String packageName = getPackageName();
-        String packageName1 = AppInfoUtil.getPackageName(this);
-        String appName = AppInfoUtil.getAppName(this);
-        String appName2 = AppInfoUtil.getPackageName2(this);
-        //
         List<Transformation> list = new ArrayList<>();
         list.add(new CircleTransformation());
         list.add(new BlurTransformation());
@@ -119,15 +115,18 @@ public class MainActivity extends TitleBarActivity {
         mActivityMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mText = null;
+                try {
+                    mText.setText("");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 
 
         mText.setTransformationMethod(new AllCapTransformationMethod());
         MiniCup.moveCursorToEnd(mText);
-
-
 
         mWebViewContainer = (LinearLayout) findViewById(R.id.webViewContainer);
 
@@ -139,6 +138,9 @@ public class MainActivity extends TitleBarActivity {
 
         mWebViewContainer.addView(imageView1, 0);
         mWebViewContainer.addView(pressCircleButton, 0);
+        CrashHandler.getInstance().init(this);
+        Log.e("CrashHandler", "onCreate: ");
+
 
     }
 
