@@ -25,9 +25,13 @@
 
 
 
-    <EditText
+    <austin.com.custom.DeleteEditText
         android:id="@+id/text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:background="@null"
+        android:drawableLeft="@drawable/ic_delete"
+        android:drawableRight="@drawable/ic_delete"
+        android:drawablePadding="10dp"
         android:layout_height="wrap_content"
         android:text="Hello World!" />
 

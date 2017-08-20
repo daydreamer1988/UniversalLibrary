@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.widget.Toast;
 
@@ -127,8 +128,15 @@ public class UpdateUtil {
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_VIEW);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+
+            if (android.os.Build.VERSION.SDK_INT < 24) {
+                intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+            } else {
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.setDataAndType(FileProvider.getUriForFile(mContext, mContext.getPackageName(), file), "application/vnd.android.package-archive");
+            }
             mContext.startActivity(intent);
+            android.os.Process.killProcess(android.os.Process.myPid());
         }
 
     }

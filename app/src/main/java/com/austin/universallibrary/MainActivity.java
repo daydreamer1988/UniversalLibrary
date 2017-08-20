@@ -28,6 +28,7 @@ import austin.com.http.VolleyInterface;
 import austin.com.permissions.RuntimePermission;
 import austin.com.receivers.SMSReceiver;
 import austin.com.utils.AllCapTransformationMethod;
+import austin.com.utils.AppInfoUtil;
 import austin.com.utils.EditTextUtil;
 import austin.com.utils.MiniCup;
 import austin.com.utils.PicassoTransform;
@@ -46,7 +47,10 @@ public class MainActivity extends TitleBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        String packageName = getPackageName();
+        String packageName1 = AppInfoUtil.getPackageName(this);
+        String appName = AppInfoUtil.getAppName(this);
+        String appName2 = AppInfoUtil.getPackageName2(this);
         //
         List<Transformation> list = new ArrayList<>();
         list.add(new CircleTransformation());
@@ -100,7 +104,6 @@ public class MainActivity extends TitleBarActivity {
 
                             }
                         }).show();
-
             }
         });
 
@@ -109,6 +112,7 @@ public class MainActivity extends TitleBarActivity {
 
 
         mText = (EditText) findViewById(R.id.text);
+
 
         EditTextUtil.setMaxLengthAndDigits(mText, 15, "HelloWorld");
 
