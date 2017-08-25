@@ -85,6 +85,10 @@ public abstract class VolleyInterface<T> {
                 if(BuildConfig.DEBUG) {
                     Log.e(context.getClass().getSimpleName() + " ---onFail: " + requestTag, volleyError.toString());
                 }
+
+                int statusCode = volleyError.networkResponse.statusCode;
+                String simpleName = volleyError.getClass().getSimpleName();
+                volleyError.initCause(new Throwable(simpleName + ":" + statusCode));
                 onFail(volleyError);
             }
         };
