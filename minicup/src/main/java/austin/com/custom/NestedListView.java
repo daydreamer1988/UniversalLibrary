@@ -6,6 +6,7 @@ import android.widget.ListView;
 
 /**
  * 有效解决了ListView嵌套ListView中，ListView的高度问题，及ListView Item 中包含TextView不换行问题
+ *
  */
 public class NestedListView extends ListView {
     public NestedListView(Context context) {

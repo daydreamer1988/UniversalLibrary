@@ -1,9 +1,11 @@
 package austin.com.utils;
 
 import android.content.Context;
+import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
+import java.lang.reflect.Field;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -28,6 +30,33 @@ public class DeviceUtil {
     }
 
 
+    /**
+     * 获取设备的IMEI码
+     *
+     * @return
+     */
+    public static String getIMEI() {
+
+        StringBuilder sb = new StringBuilder();
+
+        Field[] fields = Build.class.getFields();
+
+        if (fields != null && fields.length > 0) {
+            for (Field field : fields) {
+                field.setAccessible(true);
+                try {
+                    sb.append("\t" + field.getName() + ": ").append(field.get(null).toString()).append('\n');
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        String s = MD5Util.encrypt(sb.toString()).toUpperCase();
+
+        return s;
+//        return ((TelephonyManager) context.getSystemService(TELEPHONY_SERVICE)).getDeviceId();
+    }
 
     public static String getLocalIpAddress() {
 

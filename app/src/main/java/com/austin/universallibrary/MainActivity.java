@@ -1,18 +1,16 @@
 package com.austin.universallibrary;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.android.volley.VolleyError;
-import com.dialog.InputDialog;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 import com.yu.pay.PayFragment;
@@ -24,7 +22,6 @@ import austin.com.activity.base.TitleBarActivity;
 import austin.com.custom.CircleShadowImageView;
 import austin.com.custom.PressCircleButton;
 import austin.com.fragments.WebFragment;
-import austin.com.handlers.CrashHandler;
 import austin.com.http.ApiManager;
 import austin.com.http.VolleyInterface;
 import austin.com.permissions.RuntimePermission;
@@ -83,7 +80,7 @@ public class MainActivity extends TitleBarActivity {
                 dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);*/
 
 
-                new InputDialog(MainActivity.this)
+                /*new InputDialog(MainActivity.this)
                         .builder()
                         .setTitle("title")
                         .setTextHint("hint")
@@ -99,7 +96,8 @@ public class MainActivity extends TitleBarActivity {
                             public void onClick(View view) {
 
                             }
-                        }).show();
+                        }).show();*/
+                startActivity(new Intent(MainActivity.this, MainActivity.class));
             }
         });
 
@@ -138,18 +136,16 @@ public class MainActivity extends TitleBarActivity {
 
         mWebViewContainer.addView(imageView1, 0);
         mWebViewContainer.addView(pressCircleButton, 0);
-        CrashHandler.getInstance().init(this);
-        Log.e("CrashHandler", "onCreate: ");
+//        CrashHandler.getInstance().init(this);
+//        Log.e("CrashHandler", "onCreate: ");
 
 
     }
 
     @Override
     public void onBackPressed() {
-        if(fragment.onBackPressed()){
-        }else{
-            super.onBackPressed();
-        }
+        super.onBackPressed();
+
     }
 
     class CircleTransformation implements Transformation {

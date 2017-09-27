@@ -6,7 +6,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
-import java.util.Iterator;
 import java.util.List;
 
 import static android.content.Context.ACTIVITY_SERVICE;
@@ -67,26 +66,22 @@ public class AppInfoUtil {
     }
 
 
-    public static String getPackageName2(Context context) {
+    public static String getCurrentProcessPackageName(Context context) {
         int pid = android.os.Process.myPid();
         String processName = null;
         ActivityManager am = (ActivityManager) context.getSystemService(ACTIVITY_SERVICE);
         List l = am.getRunningAppProcesses();
-        Iterator i = l.iterator();
-        PackageManager pm = context.getPackageManager();
-        while (i.hasNext()) {
-            ActivityManager.RunningAppProcessInfo info = (ActivityManager.RunningAppProcessInfo) (i.next());
+        for (Object aL : l) {
+            ActivityManager.RunningAppProcessInfo info = (ActivityManager.RunningAppProcessInfo) (aL);
             try {
                 if (info.pid == pid) {
                     processName = info.processName;
-                    return processName;
                 }
             } catch (Exception e) {
             }
         }
         return processName;
     }
-
     /**
      * 获取应用包名
      *

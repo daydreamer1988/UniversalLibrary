@@ -22,7 +22,7 @@ import austin.com.interfaces.TitleBarInterface;
  * Created by Austin on 2016/10/28.
  */
 
-public class TitleBarActivity extends BaseActivity implements TitleBarInterface {
+public class TitleBarActivity extends PageAnimationActivity implements TitleBarInterface {
 
 
     private TextView titleTV;
